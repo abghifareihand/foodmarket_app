@@ -99,9 +99,9 @@ class _EditAccountPageState extends State<EditAccountPage> {
                         houseNumber: _houseController.text,
                         phoneNumber: _phoneController.text,
                       );
-                      context.read<UserBloc>().add(
-                            UserEvent.updateUser(userRequest),
-                          );
+                      context
+                          .read<UserBloc>()
+                          .add(UserEvent.updateUser(userRequest));
                     },
                     label: 'Update Data',
                   );
