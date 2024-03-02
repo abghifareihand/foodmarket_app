@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodmarket_app/core/constants/colors.dart';
 import 'package:foodmarket_app/presentation/home/bloc/food/food_bloc.dart';
-import 'package:foodmarket_app/presentation/home/pages/search_page.dart';
 import 'package:foodmarket_app/presentation/home/widgets/card_food_widget.dart';
 import 'package:foodmarket_app/presentation/home/widgets/shimmer_card_food.dart';
 
@@ -57,21 +56,9 @@ class _HomePageState extends State<HomePage> {
                   fontSize: 16,
                 ),
                 border: InputBorder.none,
-                prefixIcon: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return const SearchPage();
-                        },
-                      ),
-                    );
-                  },
-                  child: const Icon(
-                    Icons.search,
-                    color: AppColor.grey,
-                  ),
+                prefixIcon: const Icon(
+                  Icons.search,
+                  color: AppColor.grey,
                 ),
                 contentPadding: const EdgeInsets.symmetric(
                   vertical: 16.0,
