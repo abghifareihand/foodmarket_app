@@ -7,6 +7,7 @@ import 'package:foodmarket_app/presentation/auth/bloc/login/login_bloc.dart';
 import 'package:foodmarket_app/presentation/auth/bloc/register/register_bloc.dart';
 import 'package:foodmarket_app/presentation/auth/pages/login_page.dart';
 import 'package:foodmarket_app/presentation/dashboard/pages/dashboard_page.dart';
+import 'package:foodmarket_app/presentation/home/bloc/category/category_bloc.dart';
 import 'package:foodmarket_app/presentation/home/bloc/food/food_bloc.dart';
 
 void main() {
@@ -35,6 +36,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => FoodBloc(),
         ),
+        BlocProvider(
+          create: (context) => CategoryBloc(),
+        ),
+       
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

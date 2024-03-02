@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foodmarket_app/core/components/spaces.dart';
 import 'package:foodmarket_app/core/constants/colors.dart';
+import 'package:foodmarket_app/presentation/home/bloc/category/category_bloc.dart';
 import 'package:foodmarket_app/presentation/home/bloc/food/food_bloc.dart';
+import 'package:foodmarket_app/presentation/home/widgets/card_food_shimmer.dart';
 import 'package:foodmarket_app/presentation/home/widgets/card_food_widget.dart';
-import 'package:foodmarket_app/presentation/home/widgets/shimmer_card_food.dart';
+import 'package:foodmarket_app/presentation/home/widgets/tile_food_shimmer.dart';
+import 'package:foodmarket_app/presentation/home/widgets/tile_food_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,27 +17,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final TextEditingController searchController = TextEditingController();
   List<String> foodTypes = [
-    'All Food',
     'Recommended',
     'Popular',
     'Bestseller',
   ];
-  String selectedFoodType = 'All Food';
+  String selectedFoodType = 'Recommended';
 
   @override
   void initState() {
+    context.read<FoodBloc>().add(const FoodEvent.getFood());
+    context
+        .read<CategoryBloc>()
+        .add(CategoryEvent.getFoodCategory(selectedFoodType));
     super.initState();
-    fetchData();
-  }
-
-  void fetchData() {
-    if (selectedFoodType == 'All Food') {
-      context.read<FoodBloc>().add(const FoodEvent.getFood());
-    } else {
-      context.read<FoodBloc>().add(FoodEvent.getFoodType(selectedFoodType));
-    }
   }
 
   @override
@@ -65,14 +62,47 @@ class _HomePageState extends State<HomePage> {
                   horizontal: 12.0,
                 ),
               ),
-              controller: searchController,
-              onChanged: (text) {
-                context.read<FoodBloc>().add(FoodEvent.searchFood(text));
+              onChanged: (value) {
+                context.read<FoodBloc>().add(FoodEvent.searchFood(value));
               },
             ),
           ),
 
-          // Food type list
+          SizedBox(
+            height: 250,
+            child: BlocBuilder<FoodBloc, FoodState>(
+              builder: (context, state) {
+                return state.maybeWhen(
+                  orElse: () {
+                    return const CardFoodShimmer();
+                  },
+                  loading: () {
+                    return const CardFoodShimmer();
+                  },
+                  loaded: (foodResponse) {
+                    final food = foodResponse.data.data;
+                    return ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      physics: const BouncingScrollPhysics(),
+                      itemCount: food.length,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 8,
+                      ),
+                      separatorBuilder: (context, index) =>
+                          const SpaceWidth(16),
+                      itemBuilder: (context, index) {
+                        return CardFoodWidget(food: food[index]);
+                      },
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+
+          const SizedBox(height: 20),
+
           Container(
             margin: const EdgeInsets.only(top: 8),
             height: 36,
@@ -91,7 +121,9 @@ class _HomePageState extends State<HomePage> {
                     setState(() {
                       selectedFoodType = type;
                     });
-                    fetchData();
+                    context
+                        .read<CategoryBloc>()
+                        .add(CategoryEvent.getFoodCategory(selectedFoodType));
                   },
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -114,16 +146,18 @@ class _HomePageState extends State<HomePage> {
               },
             ),
           ),
+
           const SizedBox(height: 20),
+
           // Food list
-          BlocBuilder<FoodBloc, FoodState>(
+          BlocBuilder<CategoryBloc, CategoryState>(
             builder: (context, state) {
               return state.maybeWhen(
                 orElse: () {
-                  return const ShimmerCardFood();
+                  return const TileFoodShimmer();
                 },
                 loading: () {
-                  return const ShimmerCardFood();
+                  return const TileFoodShimmer();
                 },
                 loaded: (foodResponse) {
                   final food = foodResponse.data.data;
@@ -143,7 +177,7 @@ class _HomePageState extends State<HomePage> {
                       );
                     },
                     itemBuilder: (context, index) {
-                      return CardFoodWidget(
+                      return TileFoodWidget(
                         food: food[index],
                       );
                     },
