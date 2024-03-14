@@ -70,12 +70,14 @@ class _RegisterAddressPageState extends State<RegisterAddressPage> {
                   error: (message) {},
                   loaded: (authResponse) async {
                     await AuthLocalDatasource().saveAuthData(authResponse);
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const DashboardPage(),
-                      ),
-                    );
+                    if (context.mounted) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const DashboardPage(),
+                        ),
+                      );
+                    }
                   },
                 );
               },

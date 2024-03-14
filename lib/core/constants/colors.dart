@@ -21,6 +21,8 @@ TextStyle blackTextStyle = const TextStyle(color: AppColor.black);
 TextStyle whiteTextStyle = const TextStyle(color: AppColor.white);
 TextStyle greyTextStyle = const TextStyle(color: AppColor.grey);
 TextStyle primaryTextStyle = const TextStyle(color: AppColor.primary);
+TextStyle greenTextStyle = const TextStyle(color: AppColor.green);
+TextStyle redTextStyle = const TextStyle(color: AppColor.red);
 
 /// text weight
 FontWeight light = FontWeight.w300;

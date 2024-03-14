@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:foodmarket_app/core/constants/colors.dart';
 import 'package:foodmarket_app/core/constants/images.dart';
 import 'package:foodmarket_app/presentation/home/pages/home_page.dart';
-import 'package:foodmarket_app/presentation/order/pages/order_page.dart';
+import 'package:foodmarket_app/presentation/transaction/pages/transaction_page.dart';
 import 'package:foodmarket_app/presentation/account/pages/account_page.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -17,7 +17,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
   final List<Widget> _pages = [
     const HomePage(),
-    const OrderPage(),
+    const TransactionPage(),
     const AccountPage(),
   ];
 
@@ -45,15 +45,21 @@ class _DashboardPageState extends State<DashboardPage> {
         onTap: _onItemTapped,
         items: const [
           BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage(Images.iconHome)),
+            icon: ImageIcon(
+              AssetImage(Images.iconHome),
+            ),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage(Images.iconOrder)),
-            label: 'Order',
+            icon: ImageIcon(
+              AssetImage(Images.iconOrder),
+            ),
+             label: 'Transaction',
           ),
           BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage(Images.iconAccount)),
+            icon: ImageIcon(
+              AssetImage(Images.iconAccount),
+            ),
             label: 'Account',
           ),
         ],

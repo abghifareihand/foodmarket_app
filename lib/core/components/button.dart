@@ -26,7 +26,7 @@ class Button extends StatelessWidget {
     required this.label,
     this.style = ButtonStyle.primary,
     this.color = AppColor.primary,
-    this.textColor = AppColor.white,
+    this.textColor = AppColor.black,
     this.width = double.infinity,
     this.height = 50.0,
     this.borderRadius = 12.0,
@@ -72,7 +72,7 @@ class Button extends StatelessWidget {
                   if (icon != null) const SpaceWidth(10.0),
                   Text(
                     label,
-                    style: whiteTextStyle.copyWith(
+                    style: blackTextStyle.copyWith(
                       fontSize: fontSize,
                       fontWeight: bold,
                     ),

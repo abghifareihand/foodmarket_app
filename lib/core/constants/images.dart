@@ -8,4 +8,5 @@ class Images {
 
   /// Images
   static const String placeholder = 'assets/images/placeholder.png';
+  static const String food = 'assets/images/food.png';
 }

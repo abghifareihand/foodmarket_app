@@ -121,11 +121,13 @@ class _AccountPageState extends State<AccountPage> {
                 error: (message) {},
                 loaded: (message) async {
                   await AuthLocalDatasource().removeAuthData();
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const LoginPage()),
-                      (route) => false);
+                  if (context.mounted) {
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginPage()),
+                        (route) => false);
+                  }
                 },
               );
             },

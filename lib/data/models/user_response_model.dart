@@ -2,7 +2,7 @@ import 'dart:convert';
 
 class UserResponseModel {
     final Meta meta;
-    final Data data;
+    final User data;
 
     UserResponseModel({
         required this.meta,
@@ -15,7 +15,7 @@ class UserResponseModel {
 
     factory UserResponseModel.fromMap(Map<String, dynamic> json) => UserResponseModel(
         meta: Meta.fromMap(json["meta"]),
-        data: Data.fromMap(json["data"]),
+        data: User.fromMap(json["data"]),
     );
 
     Map<String, dynamic> toMap() => {
@@ -24,7 +24,7 @@ class UserResponseModel {
     };
 }
 
-class Data {
+class User {
     final int id;
     final String name;
     final String email;
@@ -41,7 +41,7 @@ class Data {
     final int updatedAt;
     final String profilePhotoUrl;
 
-    Data({
+    User({
         required this.id,
         required this.name,
         required this.email,
@@ -59,11 +59,11 @@ class Data {
         required this.profilePhotoUrl,
     });
 
-    factory Data.fromJson(String str) => Data.fromMap(json.decode(str));
+    factory User.fromJson(String str) => User.fromMap(json.decode(str));
 
     String toJson() => json.encode(toMap());
 
-    factory Data.fromMap(Map<String, dynamic> json) => Data(
+    factory User.fromMap(Map<String, dynamic> json) => User(
         id: json["id"],
         name: json["name"],
         email: json["email"],
